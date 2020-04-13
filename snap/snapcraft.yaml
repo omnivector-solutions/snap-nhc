@@ -1,0 +1,46 @@
+name: nhc
+version: '0.1' 
+summary: LBNL Node Health Check (NHC)
+description: |
+  LBNL Node Health Check (NHC)
+
+base: core18
+
+grade: stable
+confinement: classic
+
+apps:
+  nhc:
+    command: bin/nhc
+
+parts:
+  nhc:
+    plugin: dump
+    source: https://github.com/mej/nhc.git
+    source-type: git
+    source-depth: 1
+    source-branch: master
+    build-packages:
+      - automake
+      - make
+    stage:
+      - usr/
+    prime:
+      - usr/
+    override-build: |
+      snapcraftctl build
+      ./autogen.sh
+      ./configure --prefix=$SNAPCRAFT_PART_INSTALL/usr
+      make
+      make install
+
+  nhc-bin:
+    plugin: dump
+    source: src/nhc/
+    source-type: local
+
+  hooks:
+    plugin: dump
+    source: src/hooks/
+    organize:
+      bin/: snap/hooks/
