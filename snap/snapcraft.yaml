@@ -1,8 +1,9 @@
 name: nhc
-version: '0.1' 
 summary: LBNL Node Health Check (NHC)
 description: |
   LBNL Node Health Check (NHC)
+
+adopt-info: nhc
 
 base: core18
 
@@ -25,14 +26,17 @@ parts:
       - make
     stage:
       - usr/
+      - nhc.conf
     prime:
       - usr/
+      - nhc.conf
     override-build: |
       snapcraftctl build
       ./autogen.sh
       ./configure --prefix=$SNAPCRAFT_PART_INSTALL/usr
       make
       make install
+      snapcraftctl set-version `git rev-parse --short HEAD`
 
   nhc-bin:
     plugin: dump
