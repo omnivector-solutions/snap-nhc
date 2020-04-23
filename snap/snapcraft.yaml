@@ -8,7 +8,7 @@ adopt-info: nhc
 base: core18
 
 grade: stable
-confinement: classic
+confinement: strict
 
 apps:
   nhc:
