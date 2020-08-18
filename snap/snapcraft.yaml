@@ -5,10 +5,10 @@ description: |
 
 adopt-info: nhc
 
-base: core18
+base: core20
 
 grade: stable
-confinement: strict
+confinement: classic
 
 apps:
   nhc:
@@ -17,10 +17,9 @@ apps:
 parts:
   nhc:
     plugin: dump
-    source: https://github.com/mej/nhc.git
-    source-type: git
+    source: https://github.com/omnivector-solutions/nhc.git
+    source-tag: 1.4.2-omni
     source-depth: 1
-    source-branch: master
     build-packages:
       - automake
       - make
@@ -33,10 +32,16 @@ parts:
     override-build: |
       snapcraftctl build
       ./autogen.sh
-      ./configure --prefix=$SNAPCRAFT_PART_INSTALL/usr
+      ./configure --prefix=$SNAPCRAFT_PART_INSTALL/usr --libexecdir=$SNAPCRAFT_PART_INSTALL/usr/lib
       make
       make install
-      snapcraftctl set-version `git rev-parse --short HEAD`
+      # Set snap version
+      snapcraftctl set-version `git describe --tags`
+
+  nhc-vars:
+    plugin: dump
+    source: src/nhc-vars/
+    source-type: local
 
   nhc-bin:
     plugin: dump

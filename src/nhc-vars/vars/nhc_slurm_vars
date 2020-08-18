@@ -1,0 +1,3 @@
+SLURM_CONF="/var/snap/slurm/common/etc/slurm/slurm.conf"
+SLURM_SINFO="/snap/bin/slurm.sinfo"
+SLURM_SCONTROL="/snap/bin/slurm.scontrol"

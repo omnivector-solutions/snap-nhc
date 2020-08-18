@@ -1,8 +1,21 @@
 #!/bin/bash
+# NHC snap install hook
+#
+# Create the directories and config needed by nhc.
 
 set -eux
 
-# Create the nhc conf dir, copy over the default config
-mkdir -p "$SNAP_COMMON/etc/nhc/"
-mkdir -p "$SNAP_COMMON/var/log/"
-cp $SNAP/nhc.conf $SNAP_COMMON/etc/nhc/
+mkdir -p "$SNAP_COMMON/vars"
+mkdir -p "$SNAP_COMMON/etc/nhc"
+mkdir -p "$SNAP_COMMON/usr/lib/nhc/"
+
+mkdir -p "$SNAP_COMMON/var/log/nhc"
+chmod -R 0777 "$SNAP_COMMON/var/log/nhc"
+
+cp -r "$SNAP/usr/lib/nhc/node-mark-offline" "$SNAP_COMMON/usr/lib/nhc/node-mark-offline"
+cp -r "$SNAP/usr/lib/nhc/node-mark-online" "$SNAP_COMMON/usr/lib/nhc/node-mark-online"
+
+cp -r "$SNAP/usr/etc/nhc/scripts" "$SNAP_COMMON/etc/nhc/"
+cp "$SNAP/templates/nhc.conf" "$SNAP_COMMON/etc/nhc/"
+
+cp "$SNAP/vars/nhc_slurm_vars" "$SNAP_COMMON/vars/"
