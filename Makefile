@@ -1,7 +1,7 @@
 push-snap-to-edge: ## Push snap to edge s3
 	@./scripts/push_snap.sh edge
 
-pull-snap-from-edge: ## Push snap to edge s3
+pull-snap-from-edge: ## Pull snap from s3 edge
 	@./scripts/pull_snap.sh edge
 
 # Display target comments in 'make help'
