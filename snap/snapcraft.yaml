@@ -25,10 +25,8 @@ parts:
       - make
     stage:
       - usr/
-      - nhc.conf
     prime:
       - usr/
-      - nhc.conf
     override-build: |
       snapcraftctl build
       ./autogen.sh
