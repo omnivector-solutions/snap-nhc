@@ -2,8 +2,8 @@
 
 set -e
 
-if [[ -f $SNAP_COMMON/var/nhc_slurm_vars ]]; then
-    . $SNAP_COMMON/vars/*
+if [[ -f $SNAP_COMMON/vars/nhc_slurm_vars ]]; then
+    . $SNAP_COMMON/vars/nhc_slurm_vars
 fi
 
 export SLURM_CONF=${SLURM_CONF:-/etc/slurm-llnl/slurm.conf}
@@ -15,4 +15,4 @@ export RESULTFILE="$SNAP_COMMON/var/log/nhc/result.log"
 export CONFIG_DIR="$SNAP_COMMON/etc/nhc"
 export HELPERDIR="$SNAP_COMMON/usr/lib/nhc"
 
-"$SNAP/usr/sbin/nhc" -d -l $LOG_FILE -D $CONFIG_DIR HELPERDIR=$HELPERDIR
+"$SNAP/usr/sbin/nhc" -d -l $LOG_FILE -D $CONFIG_DIR -c $CONFIG_DIR/nhc.conf HELPERDIR=$HELPERDIR
