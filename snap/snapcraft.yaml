@@ -13,8 +13,41 @@ confinement: classic
 apps:
   nhc:
     command: bin/nhc
+  logrotate:
+    daemon: oneshot
+    command: sbin/logrotate $SNAP_COMMON/etc/logrotate.conf
+    timer: "00:00-24:00/288"
 
 parts:
+  logrotate:
+    plugin: dump
+    source: https://github.com/logrotate/logrotate.git
+    source-tag: 3.17.0
+    stage-packages:
+      - bzip2
+    build-packages:
+      - autoconf
+      - automake
+      - libpopt-dev
+      - libtool
+      - make
+      - xz-utils
+    override-build: |
+      snapcraftctl build
+      autoreconf -fiv
+      ./configure --prefix=$SNAPCRAFT_PART_INSTALL/
+      make
+      make install
+    stage:
+      - sbin/
+      - lib/
+      - lib64/
+      - bin/
+  logrotate-conf:
+    plugin: dump
+    source: src/logrotate/
+    stage:
+      - etc/
   nhc:
     plugin: dump
     source: https://github.com/omnivector-solutions/nhc.git

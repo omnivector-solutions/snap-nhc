@@ -6,6 +6,14 @@ if [[ -f $SNAP_COMMON/vars/nhc_slurm_vars ]]; then
     . $SNAP_COMMON/vars/nhc_slurm_vars
 fi
 
+DEBUG=""
+if [[ -f $SNAP_COMMON/vars/debug ]]; then
+    debug_config=$(cat $SNAP_COMMON/vars/debug)
+    if [[ $debug_config == "true" ]]; then
+        DEBUG="-d"
+    fi
+fi
+
 export SLURM_CONF=${SLURM_CONF:-/etc/slurm-llnl/slurm.conf}
 export SLURM_SINFO=${SLURM_SINFO:-/usr/bin/sinfo}
 export SLURM_SCONTROL=${SLURM_SCONTROL:-/usr/bin/scontrol}
@@ -15,4 +23,4 @@ export RESULTFILE="$SNAP_COMMON/var/log/nhc/result.log"
 export CONFIG_DIR="$SNAP_COMMON/etc/nhc"
 export HELPERDIR="$SNAP_COMMON/usr/lib/nhc"
 
-"$SNAP/usr/sbin/nhc" -d -l $LOG_FILE -D $CONFIG_DIR -c $CONFIG_DIR/nhc.conf HELPERDIR=$HELPERDIR
+"$SNAP/usr/sbin/nhc" $DEBUG -l $LOG_FILE -D $CONFIG_DIR -c $CONFIG_DIR/nhc.conf HELPERDIR=$HELPERDIR
