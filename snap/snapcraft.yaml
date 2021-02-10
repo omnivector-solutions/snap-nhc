@@ -51,7 +51,7 @@ parts:
   nhc:
     plugin: dump
     source: https://github.com/omnivector-solutions/nhc.git
-    source-tag: 1.4.2-omni
+    source-tag: 1.4.2-omni-0
     source-depth: 1
     build-packages:
       - automake
@@ -62,9 +62,8 @@ parts:
       - usr/
     override-build: |
       snapcraftctl build
-      ./autogen.sh
-      ./configure --prefix=$SNAPCRAFT_PART_INSTALL/usr --libexecdir=$SNAPCRAFT_PART_INSTALL/usr/lib
-      make
+      ./autogen.sh --prefix=$SNAPCRAFT_PART_INSTALL/usr --sysconfdir=$SNAPCRAFT_PART_INSTALL/etc --libexecdir=$SNAPCRAFT_PART_INSTALL/usr/lib
+      make test
       make install
       # Set snap version
       snapcraftctl set-version `git describe --tags`
