@@ -62,7 +62,7 @@ parts:
       - usr/
     override-build: |
       snapcraftctl build
-      ./autogen.sh --prefix=$SNAPCRAFT_PART_INSTALL/usr --sysconfdir=$SNAPCRAFT_PART_INSTALL/etc --libexecdir=$SNAPCRAFT_PART_INSTALL/usr/lib
+      ./autogen.sh --prefix=$SNAPCRAFT_PART_INSTALL/usr --libexecdir=$SNAPCRAFT_PART_INSTALL/usr/lib
       make test
       make install
       # Set snap version
