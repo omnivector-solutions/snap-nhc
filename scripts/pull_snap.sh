@@ -3,7 +3,8 @@
 set -e
 
 stage=$1
+snapname=$2
 
-s3_loc="s3://omnivector-public-assets/snaps/nhc/$stage/nhc_1.4.2-omni_amd64.snap"
+s3_loc="s3://omnivector-public-assets/snaps/nhc/$stage/$snapname"
 echo "Copying $s3_loc to ."
 aws s3 cp $s3_loc ./nhc.snap

@@ -6,4 +6,4 @@ stage=$1
 
 s3_loc="s3://omnivector-public-assets/snaps/nhc/$stage/"
 echo "Copying snap to $s3_loc"
-aws s3 cp --acl public-read ./nhc_*_amd64.snap $s3_loc
+aws s3 cp --acl public-read ./nhc_*_amd64.snap "$s3_loc"
